@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.bigbox{
+				width: 1920px;
+				height: 1080px;
+				overflow: hidden;
+				margin: 0 auto;
+				position: relative;
+			}
+			.box{
+				width: 192000px;
+				position: absolute;
+			}
+			.box img{
+				float: left;
+			}
+			.bigbox p {
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+				bottom: 200px;
+			}
+			p span{
+				width: 10px;
+				height: 10px;
+				float: left;
+				background-color: #fff;
+				margin: 0 10px;
+				border-radius: 50%;
+				/*opacity: 0.5;*/
+				filter: alpha(opacity:50);
+			}
+			.active{
+				width: 15px;
+				height: 15px;
+				background-color: #000;
+				position: relative;
+				bottom: 2px;
+			}
+			.bigbox a {
+				text-decoration: none;
+				position: absolute;
+				width: 50px;
+				height: 100px;
+				background: gray;
+				top: 50%;
+				margin-top: -50px;
+				font-size: 50px;
+				color: white;
+				text-align: center;
+				line-height: 100px;
+				filter: alpha(opacity: 50);
+				opacity: 0.5;
+				display: none;
+			}
+			
+			.bigbox a.btnleft {
+				left: 0;
+			}
+			
+			.bigbox a.btnright {
+				right: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="bigbox" id="bigbox">
+			<div class="box" id="box">
+				<img src="img/fj/1121375.jpg"/>
+				<img src="img/fj/1121377.jpg"/>
+				<img src="img/fj/1121379.jpg"/>
+				<img src="img/fj/1121381.jpg"/>
+				<img src="img/fj/1121383.jpg"/>
+				<img src="img/fj/1121385.jpg"/>
+				<img src="img/fj/1125277.jpg"/>
+				<img src="img/fj/1126004.jpg"/>
+				<img src="img/fj/1126216.jpg"/>
+				<img src="img/fj/1126218.jpg"/>
+				<img src="img/fj/1126220.jpg"/>
+				<img src="img/fj/1126222.jpg"/>
+				<img src="img/fj/1126224.jpg"/>
+				<img src="img/fj/1130588.jpg"/>
+				<img src="img/fj/1130590.jpg"/>
+				<img src="img/fj/1130592.jpg"/>
+				<img src="img/fj/1130594.jpg"/>
+				<img src="img/fj/1130596.jpg"/>
+				<img src="img/fj/1130598.jpg"/>
+				<img src="img/fj/1152326.jpg"/>
+				<img src="img/fj/1152328.jpg"/>
+				<img src="img/fj/1152330.jpg"/>
+				<img src="img/fj/1152332.jpg"/>
+				<img src="img/fj/1152334.jpg"/>
+				<img src="img/fj/1152336.jpg"/>
+				<img src="img/fj/1155202.jpg"/>
+				<img src="img/fj/1155206.jpg"/>
+				<img src="img/fj/1155208.jpg"/>
+				<img src="img/fj/1155210.jpg"/>
+				<img src="img/fj/1155212.jpg"/>
+				<img src="img/fj/1121375.jpg"/>
+				
+			</div>
+			<p id="l">
+				<span class="active"></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</p>
+			<a href="javascript:;" class="btnleft" id="btnleft">&lt;</a>
+			<a href="javascript:;" class="btnright" id="btnright">&gt;</a>
+		</div>
+		<script src="js/danru.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var bigbox = document.getElementById('bigbox');
+			var box = document.getElementById('box');
+			var img = document.getElementsByTagName('img');
+			var boxs = document.getElementsByTagName('span');
+			var l = document.getElementById('l');
+			var btnl = document.getElementById('btnleft');
+			var btnr = document.getElementById('btnright');
+			var boxw = img[0].offsetWidth;
+			box.style.width = boxw * img.length + 'px';
+			var sum = 0;
+			var timer = setInterval(automove,1500);
+//			automove();
+			dan(l,50);
+			function automove(){
+				if(sum == img.length - 1){
+					sum = 0;
+					box.style.left = -sum * boxw + 'px';
+					yuan();
+				
+					
+//					return;
+				}
+				sum++;
+				box.style.left = startMove(box,-sum * boxw,100,'offsetLeft','left');
+				yuan();
+				dan(l,50);
+				
+			}
+				
+			function yuan(){
+				for (var i = 0; i < boxs.length; i++) {
+					boxs[i].className = '';
+				}
+				if(sum == boxs.length){
+					boxs[0].className = 'active';
+					return;
+				}
+				boxs[sum].className = 'active';
+			}
+			
+			bigbox.onmouseover = function(){
+				
+				
+				clearInterval(timer);
+				dan(l,100);
+				btnl.style.display = 'block';
+				btnr.style.display = 'block';
+			}
+			bigbox.onmouseout = function(){
+				
+				
+				timer = setInterval(automove,1500);
+				dan(l,50);
+				btnr.style.display = 'none';
+				btnl.style.display = 'none';
+			}
+			btnr.onclick = automove;
+			btnl.onclick = function(){
+				if(sum <= 0){
+					sum = boxs.length;
+					box.style.left = -sum * boxw + 'px';
+				}
+				sum--;
+				box.style.left = startMove(box, -sum * boxw , 100 , 'offsetLeft' , 'left');
+				yuan();
+			}
+			for (var i = 0;i < boxs.length; i++) {
+				boxs[i].id = i;
+				boxs[i].onmouseover = function(){
+					sum = this.id;
+					for (var i = 0; i < boxs.length; i++) {
+						boxs[i].className = ''
+					}
+					boxs[sum].className = 'active';
+					box.style.left = -sum * boxw + 'px';
+				}
+			}
+			
+			
+			function startMove(obj,iTarget,dir,ofset,sty){
+				window.clearInterval(obj.timer);
+				dir = obj[ofset] < iTarget ? dir : -dir;
+				obj.timer = window.setInterval(function(){
+					var speed = obj[ofset] + dir;
+					obj.style[sty] = speed + 'px';
+					if(speed < iTarget && dir < 0){
+						speed = iTarget;
+					}
+					if(speed > iTarget && dir > 0){
+						speed = iTarget;
+					}
+					if(speed == iTarget){
+						clearInterval(obj.timer);
+						obj.style[sty] = speed + 'px';
+					}
+				},20);
+			}
+//			function domove(obj, itarget, dir,myoffset,attr) {
+//			    window.clearInterval(obj.timer);
+//			    dir = obj[myoffset] < itarget ? dir : -dir;
+//			    obj.timer = window.setInterval(function () {
+//			        var speed = obj[myoffset] + dir;//+---> -
+//			        obj.style[attr] = speed + 'px';
+//			        if (speed < itarget && dir < 0) {  //> ---<  500  0
+//			            speed = itarget;
+//			        }
+//			        if (speed > itarget && dir > 0) {  //> ---<  500  0
+//			            speed = itarget;
+//			        }
+//			        if (speed == itarget) {
+//			            clearInterval(obj.timer);
+//			            obj.style[attr] = speed + 'px';
+//			        }
+//			    }, 30);
+//			}
+//			console.log(boxw);
+		</script>
+	</body>
+</html>
